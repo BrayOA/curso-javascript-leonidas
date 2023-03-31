@@ -9,6 +9,8 @@ const defaultDateOptions = {
    return new Intl.DateTimeFormat('es', option).format(date)
     
 
+}
 
-
+export function formatTemp(value){
+  return `${Math.floor (value)}°`
 }

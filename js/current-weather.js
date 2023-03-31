@@ -1,19 +1,38 @@
 import weather from '../data/current-weather.js'
-import { formatDate } from './utils/format-date.js'
+import { formatDate, formatTemp } from './utils/format-date.js'
 
-
+//weather.main.temp
 
 function setCurrentCity ($el, city){
     $el.textContent = city
 }
 
-
-
-
 function setCurrentDate ($el){
     const date = new Date ()
     const formattedDate = formatDate (date)
     $el.textContent = formattedDate
+
+}
+
+function setCurrentTemp ($el, temp){
+    $el.textContent = formatTemp(temp)
+}
+
+function solarStatus(sunsetTime, sunriseTime) {
+    const currentHours = new Date().getHours()
+    const sunsetHours = sunsetTime.getHours()
+    const sunriseHours = sunriseTime.getHours ()
+
+
+    if(currentHours > sunriseHours || currentHours < sunriseHours){
+        return 'night' 
+    }
+    
+    return 'morning'
+}
+
+function setBackground ($el, solarStatus) {
+    $el.style.backgroundImage = `url(./images/${solarStatus}-drizzle.jpg)`
 }
 
 function configCurrentWeather(weather){
@@ -27,7 +46,18 @@ function configCurrentWeather(weather){
      const city = weather.name
      setCurrentCity($currentWeatherCity, city)
     //temp
+    const $currentWeatherTemp = document.querySelector('#current-weather-temp')
+    const temp = weather.main.temp
+    setCurrentTemp($currentWeatherTemp, temp)
+
+
+
     //background
+    const sunriseTime = new Date ( weather.sys.sunrise * 1000)
+    const sunsetTime = new Date (  weather.sys.runset *1000)
+    
+    const $app =document.querySelector('#app')
+    setBackground($app, solarStatus(sunriseTime, sunsetTime))
 
 }
 
