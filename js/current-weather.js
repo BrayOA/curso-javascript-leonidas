@@ -1,6 +1,7 @@
 import weather from '../data/current-weather.js'
 import { formatDate, formatTemp } from './utils/format-date.js'
 import {weatherConditionsCode} from './constants.js'
+import {getCurrentPosition} from './geolocation.js'
 
 //weather.main.temp
 //weatherConditionsCode []
@@ -35,8 +36,14 @@ function solarStatus(sunsetTime, sunriseTime) {
 }
 
 function setBackground ($el, conditioncode, solarStatus) {
-    const weatherType = weatherConditionsCode [conditioncode]
-    $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}.jpg)`
+    const weatherType = weatherConditionsCode[conditioncode]
+    const size = window.matchMedia('(-webkit-min-device-pixel-ratio: 2)').matches ? '@2x' : ''
+    //let size = ''
+    //if ( window.matchMedia("(-webkit-main-divice-pixel-ratio: 2)").matches) {
+      // size = '@2x'
+    //}
+    //true ? '@2x' : ''
+    $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`
 }
 
 function configCurrentWeather(weather){
@@ -67,6 +74,17 @@ function configCurrentWeather(weather){
 
 export default function currentWeather() {
     //GEO // API - weather // config
+    console.log('esto pasa antes de getCurrentPosition')
+    //const latlon = getCurrentPosition()
+     getCurrentPosition()
+    .then((data) =>{
+        console.log('hemos triunfado',data)
+    })
+    .catch((message)=>{
+        console.log(message)
+
+    })
+    console.log('esto pasa despues de getCurrentPosition')
     configCurrentWeather(weather)
     console.log(weather);
 }
