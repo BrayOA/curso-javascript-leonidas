@@ -1,10 +1,11 @@
 import currentWeathe from './current-weather.js'
 import {ViewportSize} from './utils/viewport.js'
-
+import './tabs.js'
 
 const $app = document.querySelector('#app')
 const $loading = document.querySelector('#loading')
 
-ViewportSize
+ViewportSize($app)
+ViewportSize($loading)
 
 currentWeathe ()
