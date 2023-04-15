@@ -28,8 +28,8 @@
   content: '';
   display: block;
   inline-size: 200px;
-  block-size: 5px;
-  background-color: rgb(33, 5, 133);
+  block-size: 6px;
+  background-color: white;
   animation: time 3s linear infinite;
   transform-origin: left center;
   position: relative;
