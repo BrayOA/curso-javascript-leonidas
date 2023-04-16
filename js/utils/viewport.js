@@ -19,7 +19,6 @@ export function offViewportResize(callback) {
 
 export function viewportSize($el) {
   setViewportSize($el)
-
   onViewportResize(() => setViewportSize($el))
 }
 
